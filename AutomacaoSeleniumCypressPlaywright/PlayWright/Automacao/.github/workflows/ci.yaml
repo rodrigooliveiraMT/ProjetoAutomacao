@@ -1,0 +1,19 @@
+name: CI - Testes Automatizados
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        pip install pytest
+        pip install pytest allure-pytest
+
+    - name: Executar os Testes
+      run: pytest -v

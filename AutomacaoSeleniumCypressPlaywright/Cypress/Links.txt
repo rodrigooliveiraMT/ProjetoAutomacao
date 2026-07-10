@@ -1,0 +1,11 @@
+Estrutura do curso:
+https://github.com/wlsf82/cypress-do-zero-a-nuvem/blob/main/lessons/_course-structure_.md
+
+Projeto:
+https://cac-tat-v3.s3.eu-central-1.amazonaws.com/index.html
+
+Projeto na nuvem Git Hub no nome do aluno:
+https://github.com/rodrigooliveiraMT/cypress-do-zero-a-nuvem
+
+Clone SSH:
+git@github.com:rodrigooliveiraMT/cypress-do-zero-a-nuvem.git

@@ -1,0 +1,1 @@
+pericia_medica_api_url = "https://proxima2.sisprevweb.com.br/estado_es/pericia_webapp/Login/Login.aspx"

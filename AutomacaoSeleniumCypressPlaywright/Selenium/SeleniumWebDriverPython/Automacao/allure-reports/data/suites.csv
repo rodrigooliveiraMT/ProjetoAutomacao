@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","4","test_titulo_login","tests","2026-06-15","passed","2026-06-15","","test_cadastro_produtos_test","",""
+"","133","test_entrar_sem_informar_credenciais","tests","2026-06-15","passed","2026-06-15","","test_cadastro_produtos_test","",""
+"","48","test_validar_tela_login","tests","2026-06-15","passed","2026-06-15","","test_cadastro_produtos_test","",""
+"","502","test_efetuar_login_dados_validos","tests","2026-06-15","passed","2026-06-15","","test_cadastro_produtos_test","",""
+"","195","test_efetuar_login_dados_invalidos","tests","2026-06-15","passed","2026-06-15","","test_cadastro_produtos_test","",""

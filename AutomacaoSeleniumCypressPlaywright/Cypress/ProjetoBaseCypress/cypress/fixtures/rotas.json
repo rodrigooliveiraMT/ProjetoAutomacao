@@ -1,0 +1,6 @@
+{
+    "url": {
+        "login": "/Login/Login.aspx",
+        "consultaPessoa": "https://proxima2.sisprevweb.com.br/municipios_05/sisprevweb/Pessoa/ConPessoa.aspx"
+    }
+}

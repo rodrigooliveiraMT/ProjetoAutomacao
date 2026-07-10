@@ -1,20 +1,3 @@
-class ResultadoTeste:
-    def __init__(self, nome):
-        self.nome = nome
-        self._status = "pendente"
-
-    def difinir_status(self, novo_status):
-        validos = ["pendente", "passou", "falhou", "bloqueado"]
-        if novo_status not in validos:
-            raise ValueError(f"Status {novo_status} inválido")
-        self._status = novo_status
-
-teste = ResultadoTeste("Teste")
-teste.difinir_status = "aprovado"
-print(teste.difinir_status)
-
-print()
-
 class ContadorTestes:
     def __init__(self, nome_suite):
         self.nome_suite = nome_suite #Público

@@ -1,7 +1,7 @@
 from resources.curso_playwright_url import curso_playwright_api_url1
 from playwright.sync_api import expect
 from pages.BasePage import BasePage
-from playwright.sync_api import TimeoutError
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 
 class CursoPlaywirght(BasePage):
     def __init__(self, page):
@@ -46,16 +46,30 @@ class CursoPlaywirght(BasePage):
         self.button_delete_usuario = page.get_by_role("button", name="Delete Account")
         self.button_delete_usuario1 = page.get_by_role("link", name="Delete Account")
         self.texto_conta_excluida = page.get_by_text("Account Deleted!")
-        self.btn_close = page.locator("iframe[name=\"aswift_1\"]").content_frame.get_by_role("button", name="Close ad")
+        self.btn_close = page.get_by_role("button", name = "Close")
+        self.btn_fechar_propaganda = page.locator(".grippy-host")
 
         self.btn_sair = page.get_by_role("link", name=" Logout")
         self.msg_login = page.get_by_role("heading", name="Login to your account")
+
+        #Adicionar produtos no carrinho e verificar valores e quantidades
+        self.card_produto1 = page.locator('.single-products').nth(0)
+        self.botao_adicionar_carrinho1 = page.locator('.overlay-content:visible .btn').nth(0)
+        self.card_produto2 = page.locator('.single-products').nth(1)
+        self.botao_adicionar_carrinho2 = page.get_by_text("Add to cart").nth(3)
+        self.btn_continuar = page.get_by_role("button", name="Continue Shopping")
+        self.link_visualizar_carrinho = page.get_by_role("link", name="View Cart")
+        self.text_carrinho = page.get_by_text("Shopping Cart")
+        self.carrinho_descricao = page.locator(".cart_description h4")
+        self.carrinho_subdescricao = page.locator(".cart_description p")
+        self.carrinho_valor = page.locator(".cart_price")
+        self.carrinho_valor_total = page.locator(".cart_total_price")
 
     def acessar_home(self):
         self.button_home.click()
 
     def acessar_produtos(self):
-        self.button_produtos.click()
+        self.page.goto("https://automationexercise.com/products")
 
     def acessar_compras(self):
         self.button_compras.click()
@@ -73,12 +87,21 @@ class CursoPlaywirght(BasePage):
         self.input_senha_login.fill(senha or self.credenciais[1])
         self.btn_login.click()
 
-    def button_close(self):
-        self.btn_close.click()
-
     def fechar_popup_se_existir(self):
-        try:
-            self.btn_close().wait_for(state="visible", timeout=2000)
-            self.button_close()
-        except TimeoutError:
-            pass
+        if self.btn_close.is_visible():
+            self.btn_close.click()
+
+    def fechar_propaganda(self):
+        if self.btn_fechar_propaganda.is_visible():
+            self.btn_fechar_propaganda.click()
+
+    def adicionar_produto_ao_carrinho(self, elemento1, elemento2):
+        elemento1.hover()
+        elemento2.click()
+
+    def validar_carrinho(self, indice_produto, descricao, subdescricao, valor, valor_total):
+        expect(self.carrinho_descricao.nth(indice_produto)).to_have_text(descricao)
+        expect(self.carrinho_subdescricao.nth(indice_produto)).to_have_text(subdescricao)
+        expect(self.carrinho_valor.nth(indice_produto)).to_have_text(valor)
+        expect(self.carrinho_valor_total.nth(indice_produto)).to_have_text(valor_total)
+

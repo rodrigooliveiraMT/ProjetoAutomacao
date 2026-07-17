@@ -1,0 +1,1 @@
+upload_arquivos_api_url = "https://www.transfernow.net/pt"

@@ -11,19 +11,23 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import automatizado.page.CursoSeleniumPO;
 import automatizado.resource.CursoSeleniumUrl;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CursoSeleniumTest extends BaseTest {
 
+    public static CursoSeleniumPO dsl;
+
     @BeforeClass
     public static void abrirPagina(){
+        dsl = new CursoSeleniumPO(driver);
         driver.get(CursoSeleniumUrl.URL_BASE);
     }
 
     @Test
     public void TC001_validarTitulo(){
-       dsl.obterTitulo("Campo de Treinamento");
+       dsl.ObterTituloPagina("Campo de Treinamento");
     }
 
     @Test

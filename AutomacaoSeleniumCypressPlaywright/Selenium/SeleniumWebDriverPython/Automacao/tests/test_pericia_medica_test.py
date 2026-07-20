@@ -1,7 +1,4 @@
 import time
-import pytest
-
-from selenium import webdriver
 
 # ✅ Opção 1 — usando == False
 # assert relembrar.is_displayed() == False, "Elemento deveria estar oculto!"
@@ -20,8 +17,8 @@ def test_TC001_validarTitulos(setup_pericia_medica):
 
 def test_TC002_validarCamposLogin(setup_pericia_medica):
     pm, page = setup_pericia_medica
-    page.buttonLogin.is_displayed(), "Não!"
-    page.buttonLogin.is_enabled(), "Não!"
+    assert page.buttonLogin.is_displayed(), "Botão de login não está visível!"
+    assert page.buttonLogin.is_enabled(), "Botão de login não está habilitado!"
     page.buttonLogin.click()
     titulo2 = page.toastTitulo.text
     assert titulo2 == "Atenção!", f"Encontrado: '{titulo2}'"

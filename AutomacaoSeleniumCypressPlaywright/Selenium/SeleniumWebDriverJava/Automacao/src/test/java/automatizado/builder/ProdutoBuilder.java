@@ -10,10 +10,10 @@ public class ProdutoBuilder {
     public Double valor = 1.0;
     public String data = "08/04/2025";
 
-    private ControleDeProdutoPO controleDeProdutoPO;
+    protected ControleDeProdutoPO controleProdutoPage;
 
     public ProdutoBuilder(ControleDeProdutoPO controleDeProdutoPO){
-        this.controleDeProdutoPO = controleDeProdutoPO;
+        this.controleProdutoPage = controleDeProdutoPO;
     }
 
     public ProdutoBuilder adicionarCodigo(Integer codigo){
@@ -42,12 +42,12 @@ public class ProdutoBuilder {
     }
 
     public void builder(){
-        controleDeProdutoPO.escrever(controleDeProdutoPO.inputCodigo, (codigo != null) ? codigo.toString() : "");
-        controleDeProdutoPO.escrever(controleDeProdutoPO.inputNome, nome);
-        controleDeProdutoPO.escrever(controleDeProdutoPO.inputQuantidade, (quantidade != null) ? quantidade.toString() : "");
-        controleDeProdutoPO.escrever(controleDeProdutoPO.inputValor, (valor != null) ? valor.toString() : "");
-        controleDeProdutoPO.escrever(controleDeProdutoPO.inputData, data);
+        controleProdutoPage.escrever(controleProdutoPage.inputCodigo, (codigo != null) ? codigo.toString() : "");
+        controleProdutoPage.escrever(controleProdutoPage.inputNome, nome);
+        controleProdutoPage.escrever(controleProdutoPage.inputQuantidade, (quantidade != null) ? quantidade.toString() : "");
+        controleProdutoPage.escrever(controleProdutoPage.inputValor, (valor != null) ? valor.toString() : "");
+        controleProdutoPage.escrever(controleProdutoPage.inputData, data);
 
-        controleDeProdutoPO.buttonSalvar.click();
+        controleProdutoPage.buttonSalvar.click();
     }
 }

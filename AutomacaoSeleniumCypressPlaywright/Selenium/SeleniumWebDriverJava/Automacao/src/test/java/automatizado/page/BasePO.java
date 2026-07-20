@@ -63,12 +63,10 @@ public abstract class BasePO {
      * 
      * @param elemento
      */
-    public void delay(WebElement elemento) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    public void aguardarElementoComTexto(WebElement elemento) {
         wait.until(ExpectedConditions.visibilityOf(elemento));
-        elemento.isDisplayed();
-        elemento.isEnabled();
-        elemento.getText().isEmpty();
+        wait.until(ExpectedConditions.elementToBeClickable(elemento));
+        wait.until(d -> !elemento.getText().trim().isEmpty());
     }
 
     /**
@@ -77,7 +75,6 @@ public abstract class BasePO {
      * @param elemento
      */
     public void delayClick(WebElement elemento) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(elemento));
         elemento.isDisplayed();
         elemento.isEnabled();
@@ -85,7 +82,6 @@ public abstract class BasePO {
     }
 
     public boolean esperarSumirElemento(WebElement elemento) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait.until(
                 ExpectedConditions.invisibilityOf(elemento));
     }
@@ -96,12 +92,13 @@ public abstract class BasePO {
     }
 
     public void linhaVisivelTela(WebElement elemento) {
-        boolean res;
+        @SuppressWarnings("unused")
+        boolean resultado;
         try {
-            delay(elemento);
-            res = elemento.isDisplayed();
+            aguardarElementoComTexto(elemento);
+            resultado = elemento.isDisplayed();
         } catch (Exception e) {
-            res = false;
+            resultado = false;
         }
     }
 

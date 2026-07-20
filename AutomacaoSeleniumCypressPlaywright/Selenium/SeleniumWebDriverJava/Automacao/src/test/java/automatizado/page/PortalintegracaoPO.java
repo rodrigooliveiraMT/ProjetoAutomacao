@@ -1,4 +1,4 @@
-package automacaoSelenium.page;
+package automatizado.page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

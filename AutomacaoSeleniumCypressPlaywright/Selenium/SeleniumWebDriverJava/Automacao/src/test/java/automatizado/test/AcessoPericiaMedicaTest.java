@@ -1,8 +1,7 @@
-package automacaoSelenium.test;
+package automatizado.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -10,19 +9,18 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.Select;
 
-import automacaoSelenium.page.AcessoPericiaMedicaPO;
+import automatizado.page.AcessoPericiaMedicaPO;
+import automatizado.resource.AcessoPericiaMedicaUrl;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AcessoPericiaMedicaTest extends BaseTest {
 
     public static AcessoPericiaMedicaPO dsl;
 
-    public static final String URL_BASE = "https://proxima2.sisprevweb.com.br/estado_01/pericia/Login/Login.aspx";
-
     @BeforeClass
-    public static void inicializarPage() {
+    public static void abrirPagina() {
         dsl = new AcessoPericiaMedicaPO(driver);
-        driver.get(URL_BASE);
+        driver.get(AcessoPericiaMedicaUrl.URL_BASE);
     }
 
     @Test
@@ -38,8 +36,8 @@ public class AcessoPericiaMedicaTest extends BaseTest {
     @Test
     public void TC003_validarMensagemLogin() {
         dsl.botaoLogin.click();
-        dsl.delay(dsl.tituloErro);
-        dsl.delay(dsl.mensagemErro);
+        dsl.aguardarElementoComTexto(dsl.tituloErro);
+        dsl.aguardarElementoComTexto(dsl.mensagemErro);
         dsl.systemResult(dsl.tituloErro.getText());
         dsl.systemResult(dsl.mensagemErro.getText());
     }
@@ -47,7 +45,7 @@ public class AcessoPericiaMedicaTest extends BaseTest {
     @Test
     public void TC004_efetuarLogin() {
         dsl.efeturarLogin();
-        dsl.delay(dsl.tituloTelaInicial);
+        dsl.aguardarElementoComTexto(dsl.tituloTelaInicial);
         dsl.validarTexto(dsl.tituloTelaInicial, "Perícia Médica");
         dsl.delayClick(dsl.acessarModuloConfiguracoes);
         dsl.delayClick(dsl.acessarParametrosSistema);
@@ -58,7 +56,7 @@ public class AcessoPericiaMedicaTest extends BaseTest {
     @Test
     public void TC005_cadastrarUsuarioOperadorPericiaMedica() {
         dsl.efeturarLogin();
-        dsl.delay(dsl.tituloTelaInicial);
+        dsl.aguardarElementoComTexto(dsl.tituloTelaInicial);
         dsl.validarTexto(dsl.tituloTelaInicial, "Perícia Médica");
         dsl.delayClick(dsl.ModuloCadastros);
         dsl.delayClick(dsl.MenuCadastroUsuarios);
@@ -67,7 +65,7 @@ public class AcessoPericiaMedicaTest extends BaseTest {
         // dsl.delayClick(dsl.clickAbaUsuarios);
         // dsl.validarTexto(dsl.clickAbaUsuarios, "Usuários");
         dsl.botaoSalvar.click();
-        dsl.delay(dsl.validarObrigatorioCampoNome);
+        dsl.aguardarElementoComTexto(dsl.validarObrigatorioCampoNome);
         dsl.inputCampoNomePerito.sendKeys("AUTOMAÇÃO");
         dsl.inputCampoLogin.sendKeys("AUTOMACAO");
         Select selectPerfil = new Select(dsl.selecionarGrupoPermissao);
@@ -76,14 +74,14 @@ public class AcessoPericiaMedicaTest extends BaseTest {
         dsl.inputCampoHashConfirmacao.sendKeys("123");
         dsl.inputCampoCPF.sendKeys("79013823092");
         dsl.delayClick(dsl.botaoSalvar);
-        dsl.delay(dsl.tituloSucesso);
-        dsl.delay(dsl.mensagemSucesso);
+        dsl.aguardarElementoComTexto(dsl.tituloSucesso);
+        dsl.aguardarElementoComTexto(dsl.mensagemSucesso);
         assertEquals("Atenção!", dsl.tituloSucesso.getText());
         assertEquals("Cadastro realizado com sucesso!", dsl.mensagemSucesso.getText());
         dsl.systemResult(dsl.tituloSucesso.getText());
         dsl.systemResult(dsl.mensagemSucesso.getText());
         dsl.inputCampoPesquisarUsuario.sendKeys("AUTOMAÇÃO");
-        dsl.delay(dsl.linhaUsuario);
+        dsl.aguardarElementoComTexto(dsl.linhaUsuario);
         assertTrue(dsl.linhaUsuario.getText().contains("AUTOMAÇÃO"));
         System.out.println("Cadastro de Usuário Operador Efetuado Com Sucesso!");
     }
@@ -94,13 +92,13 @@ public class AcessoPericiaMedicaTest extends BaseTest {
     @Test
     public void TC006_validarMenuGrupoPermissoes() {
         dsl.efeturarLogin();
-        dsl.delay(dsl.tituloTelaInicial);
+        dsl.aguardarElementoComTexto(dsl.tituloTelaInicial);
         dsl.validarTexto(dsl.tituloTelaInicial, "Perícia Médica");
         dsl.delayClick(dsl.acessarModuloConfiguracoes);
         dsl.delayClick(dsl.acessarMenuGrupoPermissoes);
         dsl.validarTexto(dsl.validarTelaGrupoPermissoes, "Grupos - Permissões");
         dsl.delayClick(dsl.botaoNovoCadastroGrupoPermissao);
-        dsl.delay(dsl.tituloModalGrupoPermissao);
+        dsl.aguardarElementoComTexto(dsl.tituloModalGrupoPermissao);
         dsl.validarTexto(dsl.tituloModalGrupoPermissao, "Cadastro de Grupos de Permissão");
         dsl.botaoFecharGrupoPermissao.click();
         dsl.retornarTelaPrincial();
@@ -114,28 +112,28 @@ public class AcessoPericiaMedicaTest extends BaseTest {
     @Test
     public void TC007_cadastrarGrupoPermissoes() {
         dsl.efeturarLogin();
-        dsl.delay(dsl.tituloTelaInicial);
+        dsl.aguardarElementoComTexto(dsl.tituloTelaInicial);
         dsl.validarTexto(dsl.tituloTelaInicial, "Perícia Médica");
         dsl.delayClick(dsl.acessarModuloConfiguracoes);
         dsl.delayClick(dsl.acessarMenuGrupoPermissoes);
         dsl.validarTexto(dsl.validarTelaGrupoPermissoes, "Grupos - Permissões");
         dsl.delayClick(dsl.botaoNovoCadastroGrupoPermissao);
-        dsl.delay(dsl.tituloModalGrupoPermissao);
+        dsl.aguardarElementoComTexto(dsl.tituloModalGrupoPermissao);
         dsl.validarTexto(dsl.tituloModalGrupoPermissao, "Cadastro de Grupos de Permissão");
         dsl.inputCampoNomeGrupo.sendKeys("Automação");
         dsl.botaoSalvarGrupoPermissao.click();
-        dsl.delay(dsl.tituloSucesso);
-        dsl.delay(dsl.mensagemSucesso);
+        dsl.aguardarElementoComTexto(dsl.tituloSucesso);
+        dsl.aguardarElementoComTexto(dsl.mensagemSucesso);
         assertEquals("Atenção!", dsl.tituloSucesso.getText());
         assertEquals("Grupo cadastrado com sucesso!", dsl.mensagemSucesso.getText());
         assertTrue(dsl.esperarSumirElemento(dsl.mensagemSucesso));
-        dsl.delay(dsl.linhaGrupoPermissao);
+        dsl.aguardarElementoComTexto(dsl.linhaGrupoPermissao);
         assertTrue(dsl.linhaGrupoPermissao.getText().contains("Automação"));
         dsl.delayClick(dsl.botaoEditarPermissao);
         dsl.delayClick(dsl.checkboxPermissao);
         dsl.botaoSalvarPermissoes.click();
-        dsl.delay(dsl.tituloSucesso);
-        dsl.delay(dsl.mensagemSucesso);
+        dsl.aguardarElementoComTexto(dsl.tituloSucesso);
+        dsl.aguardarElementoComTexto(dsl.mensagemSucesso);
         assertEquals("Atenção!", dsl.tituloSucesso.getText());
         assertEquals("Cadastro atualizado com sucesso!", dsl.mensagemSucesso.getText());
         System.out.println("Cadastro de Grupo de Permissão Efetuado Com Sucesso!");
@@ -147,19 +145,19 @@ public class AcessoPericiaMedicaTest extends BaseTest {
     @Test
     public void TC008_excluirGrupoPermissoesNegar() {
         dsl.efeturarLogin();
-        dsl.delay(dsl.tituloTelaInicial);
+        dsl.aguardarElementoComTexto(dsl.tituloTelaInicial);
         dsl.validarTexto(dsl.tituloTelaInicial, "Perícia Médica");
         dsl.delayClick(dsl.acessarModuloConfiguracoes);
         dsl.delayClick(dsl.acessarMenuGrupoPermissoes);
         dsl.validarTexto(dsl.validarTelaGrupoPermissoes, "Grupos - Permissões");
-        dsl.delay(dsl.linhaGrupoPermissao);
+        dsl.aguardarElementoComTexto(dsl.linhaGrupoPermissao);
         assertTrue(dsl.linhaGrupoPermissao.getText().contains("Automação"));
         dsl.delayClick(dsl.botaoExcluirPermissao);
         Alert alert = driver.switchTo().alert();
         String alerta = alert.getText();
         assertEquals("Deseja Mesmo Confirmar Está Operação?", alerta);
         alert.dismiss();
-        dsl.delay(dsl.linhaGrupoPermissao);
+        dsl.aguardarElementoComTexto(dsl.linhaGrupoPermissao);
         assertTrue(dsl.linhaGrupoPermissao.getText().contains("Automação"));
         System.out.println("Cadastro de Grupo de Permissão Não Excluído!");
     }
@@ -170,20 +168,20 @@ public class AcessoPericiaMedicaTest extends BaseTest {
     @Test
     public void TC008_excluirGrupoPermissoesAceitar() {
         dsl.efeturarLogin();
-        dsl.delay(dsl.tituloTelaInicial);
+        dsl.aguardarElementoComTexto(dsl.tituloTelaInicial);
         dsl.validarTexto(dsl.tituloTelaInicial, "Perícia Médica");
         dsl.delayClick(dsl.acessarModuloConfiguracoes);
         dsl.delayClick(dsl.acessarMenuGrupoPermissoes);
         dsl.validarTexto(dsl.validarTelaGrupoPermissoes, "Grupos - Permissões");
-        dsl.delay(dsl.linhaGrupoPermissao);
+        dsl.aguardarElementoComTexto(dsl.linhaGrupoPermissao);
         assertTrue(dsl.linhaGrupoPermissao.getText().contains("Automação"));
         dsl.delayClick(dsl.botaoExcluirPermissao);
         Alert alert = driver.switchTo().alert();
         String alerta = alert.getText();
         assertEquals("Deseja Mesmo Confirmar Está Operação?", alerta);
         alert.accept();
-        dsl.delay(dsl.tituloSucesso);
-        dsl.delay(dsl.mensagemSucesso);
+        dsl.aguardarElementoComTexto(dsl.tituloSucesso);
+        dsl.aguardarElementoComTexto(dsl.mensagemSucesso);
         assertEquals("Atenção!", dsl.tituloSucesso.getText());
         assertEquals("Exclusão realizada com sucesso!", dsl.mensagemSucesso.getText());
         System.out.println("Cadastro de Grupo de Permissão Excluído Com Sucesso!");

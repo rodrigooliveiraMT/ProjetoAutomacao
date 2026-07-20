@@ -41,15 +41,43 @@ public class ControleDeProdutoPO extends BasePO{
     @FindBy(id = "mensagem")
     public WebElement returnMenssagem;
 
+    @FindBy(id = "email")
+    public WebElement inputEmail;
+
+    @FindBy(id = "senha")
+    public WebElement inputSenha;
+
+    @FindBy(id = "btn-entrar")
+    public WebElement buttonEntrar;
+
+    @FindBy(id = "mensagem")
+    public WebElement spanMensagem;
+
+    @FindBy(className = "nav-link")
+    public WebElement buttonVoltar;
+
+    @FindBy(xpath= "//h1[text()='Controle de Produtos']")
+    public WebElement tituloInicial;
+
     public ControleDeProdutoPO(WebDriver driver) {
         super(driver);
+    }
+
+    public String obterMenssagem(){
+        return this.spanMensagem.getText();
+    }
+    
+    public void executarAcaoDeLogar(String email, String senha){
+        escrever(inputEmail, email);
+        escrever(inputSenha, senha);
+        buttonEntrar.click();
     }
 
     public void cadastrarProduto(
         Integer codigo, 
         String nome, 
         Integer quantidade, 
-        String valor, 
+        Double valor, 
         String data){
 
             escrever(inputCodigo, codigo.toString());

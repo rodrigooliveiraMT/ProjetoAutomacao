@@ -1,10 +1,9 @@
-package automacaoSelenium.test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+package automatizado.test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -13,19 +12,20 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import automacaoSelenium.page.ProjetoParticularPO;
+import automatizado.page.ProjetoParticularPO;
+import automatizado.resource.ProjetoParticularUrl;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProjetoParticularTest extends BaseTest {
 
     public static ProjetoParticularPO dsl;
 
-    public static final String URL_BASE = "C:/Automacao/WebSites/Componentes.html";
+    
 
     @BeforeClass
-    public static void inicializarPage() {
+    public static void abrirPagina() {
         dsl = new ProjetoParticularPO(driver);
-        driver.get(URL_BASE);
+        driver.get(ProjetoParticularUrl.URL_BASE);
     }
 
     @Test
@@ -247,7 +247,7 @@ public class ProjetoParticularTest extends BaseTest {
     public void TC017_validarButtonDelay() {
         // Implementar teste para validar button delay
         dsl.buttonDelay.click();
-        dsl.delay(dsl.insertNovoCampo);
+        dsl.aguardarElementoComTexto(dsl.insertNovoCampo);
         dsl.insertNovoCampo.sendKeys("Teste de automação com Selenium");
         assertEquals("Teste de automação com Selenium", dsl.insertNovoCampo.getAttribute("value"));
         dsl.systemResult(dsl.buttonDelay.getAccessibleName());

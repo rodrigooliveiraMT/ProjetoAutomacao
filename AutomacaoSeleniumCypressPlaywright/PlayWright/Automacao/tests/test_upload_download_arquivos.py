@@ -26,6 +26,6 @@ def test_importar_arquivo_multiplo(page):
 
 def test_download(page):
     dsl = UploadDownloadArquivo(page)
-    dsl.abrir_navegador('https://www.transfernow.net/pt/cld?utm_source=20260717vmRhPPJr')
+    dsl.abrir_navegador('https://www.transfernow.net/dl/20260717OFPSA6QU')
     page.pause()
     dsl.downloads(dsl.button_baixar)

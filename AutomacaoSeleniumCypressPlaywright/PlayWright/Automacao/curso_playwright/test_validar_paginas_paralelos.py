@@ -20,3 +20,4 @@ def test_validar_paginas_paralelos_login(page):
     dsl = BasePage(page)
     dsl.abrir_navegador("https://automationexercise.com/login")
     expect(page.get_by_role("heading", name="Login to your account")).to_be_visible()
+    

@@ -3,7 +3,7 @@ from playwright.sync_api import expect
 
 def test_nova_aba(page):
     page.goto("https://bootswatch.com/default/")
-    # page.pause()  # deixe só pra debug
+    page.pause()  # deixe só pra debug
 
     with page.expect_popup() as popup_info:
         page.keyboard.down("Control")

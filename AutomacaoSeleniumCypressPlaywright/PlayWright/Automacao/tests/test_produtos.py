@@ -3,7 +3,7 @@ from playwright.sync_api import expect
 
 def test_produtos(page):
     dsl = Produto(page)
-    #page.pause()
+    page.pause()
     preco_produto = int(dsl.card_produto.nth(1).locator(".productinfo h2").inner_text().replace("Rs. ", ""))
     print(preco_produto)
     print(type(preco_produto))

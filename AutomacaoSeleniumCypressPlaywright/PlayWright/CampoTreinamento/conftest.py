@@ -8,7 +8,7 @@ STORAGE_FILE = "storage/state.json"
 def browser_type_launch_args():
     return {
         "headless": False,
-        "slow_mo": 1000,
+        "slow_mo": 100,
         "args": ["--start-maximized"],
     }
 

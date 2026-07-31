@@ -4,21 +4,8 @@ from playwright.sync_api import expect
 
 from pages.CampoTreinamentoPO import CampoTreinamentoPO
 
-@pytest.mark.order(1)
-def test_validar_campos(page):
-    dsl = CampoTreinamentoPO(page)
-    dsl.alerta("Frame OK!", dsl.botao)
-
-def test_preencher_campos(page):
-    dsl = CampoTreinamentoPO(page)
-    dsl.input_nome.fill("Teste")
-    dsl.input_sobrenome.fill("Automatizado")
-    dsl.radio_sexo_masculino.check()
-    page.pause()
-
 def test_button_simple(page):
     dsl = CampoTreinamentoPO(page)
-    #page.pause()
     dsl.button_simple.click()
     dsl.validar_texto_input(dsl.button_simple, "Obrigado!")
     dsl_nova_guia1 = dsl.abrir_nova_guia(dsl.button_abri_popup)
@@ -30,16 +17,8 @@ def test_button_simple(page):
     dsl.button_resposta_demorada.click()
     expect(dsl.input_campo_novo).to_be_visible()
     dsl.input_campo_novo.fill("Campo preenchido após resposta demorada")
-    dsl.alerta("Alert Simples", dsl.button_alert)
-    dsl.confirmar(
-        elemento=dsl.button_confirm,
-        texto_confirmacao="Confirm Simples",
-        aceitar_confirmacao=True,
-        texto_alerta="Confirmado"
-    )
-    dsl.confirmar(
-        elemento=dsl.button_confirm,
-        texto_confirmacao="Confirm Simples",
-        aceitar_confirmacao=False,
-        texto_alerta="Negado1"
-    )
+    #page.pause()
+    dsl.handle_alert(dsl.ifram1, "Frame OK!")
+    dsl.handle_alert(dsl.button_alert, "Alert Simples")
+    dsl.handle_confirm(dsl.button_confirm, "Confirm Simples", True, "Confirmado")
+    dsl.handle_confirm(dsl.button_confirm, "Confirm Simples", False, "Negado")

@@ -1,0 +1,4 @@
+git clone --filter=blob:none --no-checkout url ///Vai somente criar a pasta no projeto
+git sparse-checkout set nome_pasta ///Baixa somente os arquivos da pasta selecionada
+cd nome_pasta ///Acessa a pasta informada
+pip install -r requirements.txt

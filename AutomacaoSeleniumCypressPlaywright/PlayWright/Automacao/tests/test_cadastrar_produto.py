@@ -7,13 +7,13 @@ from resources.cadastrar_produto_url import cadastrar_produto_api_url
 @pytest.mark.order(1)
 def test_abrir_cadastro_produto(page):
     dsl = BasePage(page)
-    dsl.abrir(cadastrar_produto_api_url)
+    dsl.abrir_navegador(cadastrar_produto_api_url)
     expect(page).to_have_title("Login")
 
 @pytest.mark.order(2)
 def test_fazer_login(page):
     dsl = BasePage(page)
-    dsl.abrir(cadastrar_produto_api_url)
+    dsl.abrir_navegador(cadastrar_produto_api_url)
     expect(page).to_have_title("Login")
     dsl.realizar_login()
     expect(dsl.titulo_login).to_have_text("Controle de Produtos")
@@ -21,7 +21,7 @@ def test_fazer_login(page):
 @pytest.mark.order(3)
 def test_caso01(page):
     dsl = BasePage(page)
-    dsl.abrir(cadastrar_produto_api_url)
+    dsl.abrir_navegador(cadastrar_produto_api_url)
     expect(page).to_have_title("Login")
     dsl.realizar_login()
     expect(dsl.titulo_login).to_have_text("Controle de Produtos")

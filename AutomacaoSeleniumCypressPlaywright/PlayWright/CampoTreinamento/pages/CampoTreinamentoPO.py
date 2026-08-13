@@ -25,37 +25,54 @@ class CampoTreinamentoPO(BasePage):
         self.button_prompt = self.page.locator("#prompt")
 
 
-    def handle_alert(self, botao_locator, texto_esperado):
-        def _on_dialog(dialog):
+    def dialogo_alert(self, botao_locator, texto_esperado):
+        def alert(dialog):
             assert dialog.type == "alert"
             assert dialog.message == texto_esperado, f"Texto apresentado: {dialog.message} - Texto esperado: {texto_esperado}"
             dialog.accept()
-        self.page.once("dialog", _on_dialog)
+        self.page.once("dialog", alert)
         botao_locator.click()
 
-    def handle_confirm(self, botao, texto_confirm: str, confirmar: bool, texto_alert_final: str):
-        mensagens = []
-
-        def primeiro(dialog):
-            print("PRIMEIRO:", dialog.type, dialog.message)
-            mensagens.append((dialog.type, dialog.message))
-            if confirmar:
-                dialog.accept()
+    def dialogo_confirm(self, botao, texto1: str, texto_esperado: str, clicar_sim: bool):
+        def alert(dialog):
+            assert dialog.type == "alert"
+            assert dialog.message == texto_esperado, f"Texto apresentado: {dialog.message} - Texto esperado: {texto_esperado}"
+            dialog.accept()  # OK no alert
+        def confirm(dialog):
+            assert dialog.type == "confirm"
+            assert dialog.message == texto1, f"Texto apresentado: {dialog.message} - Texto esperado: {texto1}"
+            # Prepara o tratamento do alert que virá após a resposta.
+            self.page.once("dialog", alert)
+            if clicar_sim:
+                dialog.accept()   # Sim no confirm
             else:
-                dialog.dismiss()
-
-        def segundo(dialog):
-            print("SEGUNDO:", dialog.type, dialog.message)
-            mensagens.append((dialog.type, dialog.message))
-            dialog.accept()
-
-        self.page.once("dialog", primeiro)
-        self.page.once("dialog", segundo)
+                dialog.dismiss()  # Cancelar no confirm
+        self.page.once("dialog", confirm)
         botao.click()
 
-        print("MENSAGENS CAPTURADAS:", mensagens)
-
-        assert mensagens[0] == ("confirm", texto_confirm)
-        assert mensagens[1] == ("alert", texto_alert_final)
-
-    
+    def dialogo_prompt(self, botao, texto_prompt: str, numero: str, clicar_prompt: bool, texto_confirm: str, clicar_confirm: bool, texto_alert: str):
+        def alert(dialog):
+            assert dialog.type == "alert"
+            assert dialog.message == texto_alert, f"Texto apresentado: {dialog.message} - Texto esperado: {texto_alert}"
+            dialog.accept()  # OK no alert
+        def confirm(dialog):
+            assert dialog.type == "confirm"
+            assert dialog.message == texto_confirm, f"Texto apresentado: {dialog.message} - Texto esperado: {texto_confirm}"
+            # O alert aparecerá após responder ao confirm.
+            self.page.once("dialog", alert)
+            if clicar_confirm:
+                dialog.accept()   # Sim
+            else:
+                dialog.dismiss()  # Cancelar
+        def prompt(dialog):
+            assert dialog.type == "prompt"
+            assert dialog.message == texto_prompt, f"Texto apresentado: {dialog.message} - Texto esperado: {texto_prompt}"
+            # O confirm aparecerá após informar o número e clicar em OK.
+            if clicar_prompt:
+                self.page.once("dialog", confirm)
+                dialog.accept(numero)   # Sim
+            else:
+                self.page.once("dialog", confirm)
+                dialog.dismiss()  # Cancelar
+        self.page.once("dialog", prompt)
+        botao.click()

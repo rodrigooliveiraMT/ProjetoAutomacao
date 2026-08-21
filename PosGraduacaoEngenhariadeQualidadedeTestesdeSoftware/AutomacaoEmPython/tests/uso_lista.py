@@ -1,5 +1,5 @@
-list = ["soma", "subtracao", "multiplicacao", "divisao"]
-print(f"Escolha uma operação: {list[3]}, {list[1]}, {list[2]}, {list[0]}")
+lista = ["soma", "subtracao", "multiplicacao", "divisao"]
+print(f"Escolha uma operação: {lista[3]}, {lista[1]}, {lista[2]}, {lista[0]}")
 
 def test_soma():
     assert 2 + 2 == 4

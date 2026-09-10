@@ -26,3 +26,5 @@ def test_button_simple(page):
     dsl.dialogo_prompt(dsl.button_prompt, texto_prompt="Digite um numero", numero="42", clicar_prompt=True, texto_confirm="Era 42?", clicar_confirm=False, texto_alert=":(")
     dsl.dialogo_prompt(dsl.button_prompt, texto_prompt="Digite um numero", numero="42", clicar_prompt=False, texto_confirm="Era null?", clicar_confirm=True, texto_alert=":D")
     dsl.dialogo_prompt(dsl.button_prompt, texto_prompt="Digite um numero", numero="42", clicar_prompt=False, texto_confirm="Era null?", clicar_confirm=False, texto_alert=":(")
+    dsl.link_voltar.click()
+    expect(dsl.resultado_voltou).to_be_visible() and expect(dsl.resultado_voltou).to_have_text("Voltou!")

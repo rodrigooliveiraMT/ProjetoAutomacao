@@ -23,7 +23,8 @@ class CampoTreinamentoPO(BasePage):
         self.button_alert = self.page.locator("#alert")
         self.button_confirm = self.page.locator("#confirm")
         self.button_prompt = self.page.locator("#prompt")
-
+        self.link_voltar = self.page.get_by_role("link", name="Voltar")
+        self.resultado_voltou = page.get_by_text("Voltou!")
 
     def dialogo_alert(self, botao_locator, texto_esperado):
         def alert(dialog):

@@ -1,5 +1,5 @@
 def test_simples():
-    assert False
+    assert False, "Este teste falhou propositalmente para fins de demonstração."
 
 def minha_funcao(x, y):
     return x + 2 * y

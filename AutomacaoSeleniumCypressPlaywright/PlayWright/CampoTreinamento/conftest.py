@@ -9,7 +9,7 @@ STORAGE_FILE = BASE_DIR / "storage" / "state.json"
 def browser_type_launch_args():
     return {
         "headless": False, # Abre o navegador na máquina local, mas não deve ficar ativo para pipeline CI/CD
-        "slow_mo": 200, # Intervado de tempo de execução de um caso de teste para outro
+        "slow_mo": 500, # Intervado de tempo de execução de um caso de teste para outro
         "args": ["--start-maximized"], # Abrir o navegador em tela cheia (Maximizado)
     }
 

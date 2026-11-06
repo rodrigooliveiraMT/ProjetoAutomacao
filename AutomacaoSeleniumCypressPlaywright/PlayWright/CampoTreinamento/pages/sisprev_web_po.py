@@ -7,7 +7,7 @@ class SisprevWebPO(BasePage):
         super().__init__(page)
         self.page = page
         self.abrir_navegador(url_sisprev_web)
-        self.logar = ["1340", "7qr85e"]
+        self.logar = ["1340", "8sut3a"]
         self.login = page.locator("#txtUSER")
         self.senha = page.locator("#txtPassWord")
         self.btn_acessar = page.get_by_role("link", name="Acessar")
